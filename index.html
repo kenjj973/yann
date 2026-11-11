@@ -1,25 +1,125 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="fr">
 <head>
-	<title>HTML and CSS "Hello World"</title>
-	<style>
-		body {
-			background-color: #2D2D2D;
-		}
-		
-		h1 {
-			color: #C26356;
-			font-size: 30px;
-			font-family: Menlo, Monaco, fixed-width;
-		}
-		
-		p {
-			color: white;
-			font-family: "Source Code Pro", Menlo, Monaco, fixed-width;
-		}
-	</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Corteiz — Redesign</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Applique la taille enregistrée avant l'affichage pour éviter un saut -->
+  <script>
+    try {
+      var s = localStorage.getItem('crtz-size');
+      if (s === '16' || s === '24' || s === '34') document.documentElement.dataset.size = s;
+    } catch (e) {}
+  </script>
 </head>
 <body>
-	<h1>Hello World Example</h1>
-	<p>This is a very basic "Hello World" example made up in HTML and CSS. See if you can change the size of the header text above.</p>
+  <div class="page">
+    <header class="header">
+      <a class="logo" href="#" aria-label="Accueil">
+        <img src="assets/logo.png" alt="Corteiz" width="200" height="90">
+      </a>
+
+      <!-- Recherche : loupe seule, s'étire en barre au clic -->
+      <div class="search-slot">
+        <form class="search" role="search" id="search">
+          <button type="button" class="search__toggle" id="search-toggle" aria-label="Rechercher" aria-expanded="false" aria-controls="search-input">
+            <img src="assets/search.svg" alt="" width="21" height="21">
+          </button>
+          <input class="search__input" id="search-input" type="search" placeholder="Search" autocomplete="off" tabindex="-1" aria-label="Rechercher un article">
+        </form>
+      </div>
+
+      <div class="cart-group">
+        <a class="pill pill--cart" href="#" aria-haspopup="dialog">
+          <img src="assets/cart.svg" alt="" width="15" height="15">
+          <span>Panier (<span id="cart-count">0</span>)</span>
+        </a>
+        <a class="pill" href="#" id="checkout-pill" aria-haspopup="dialog">CHECKOUT</a>
+      </div>
+
+      <!-- Taille du site : 16 / 24 / 34 px -->
+      <div class="size-switch" role="radiogroup" aria-label="Taille du texte" id="size-switch">
+        <span class="size-switch__fill" aria-hidden="true"></span>
+        <button type="button" role="radio" data-size="16">16px</button>
+        <button type="button" role="radio" data-size="24">24px</button>
+        <button type="button" role="radio" data-size="34">34px</button>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <nav aria-label="Catégories">
+        <ul class="cats">
+          <li><a href="#">R419</a></li>
+          <li><a href="#">NEW</a></li>
+          <li><a href="#">CLASSIC</a></li>
+          <li><a href="#">COMBOS</a></li>
+          <li><a href="#">T-SHIRTS</a></li>
+          <li><a href="#">TOPS / JERSEYS</a></li>
+          <li><a href="#">SWEATSHIRTS</a></li>
+          <li><a href="#">JACKETS</a></li>
+          <li><a href="#">KNITWEAR</a></li>
+          <li><a href="#">BOTTOMS</a></li>
+          <li><a href="#">SHORTS</a></li>
+          <li><a href="#">DENIM</a></li>
+        </ul>
+      </nav>
+      <ul class="links">
+        <li><a href="#">ARCHIVE</a></li>
+        <li><a href="#">NEWSLETTER</a></li>
+        <li><a href="#">SHIPPING</a></li>
+        <li><a href="#">TERMS OF SERVICE</a></li>
+      </ul>
+    </aside>
+
+    <main class="main">
+      <div class="status" id="status" aria-live="polite">
+        <span id="status-label">TOUS LES ARTICLES</span>
+        <button type="button" class="status__clear" id="status-clear" hidden>× TOUT AFFICHER</button>
+      </div>
+      <ul class="grid" id="grid"></ul>
+      <p class="empty" id="empty" hidden></p>
+    </main>
+  </div>
+
+  <!-- Fiche produit -->
+  <dialog class="product" id="product" aria-labelledby="product-name">
+    <div class="product__inner">
+      <button type="button" class="product__close" id="product-close" aria-label="Fermer">×</button>
+      <div class="product__img"><img id="product-img" src="" alt=""></div>
+      <div class="product__info">
+        <h2 class="product__name" id="product-name"></h2>
+        <p class="product__price" id="product-price"></p>
+        <p class="product__label">TAILLE</p>
+        <div class="product__sizes" id="product-sizes"></div>
+        <button type="button" class="product__add" id="product-add">AJOUTER AU PANIER</button>
+        <p class="product__msg" id="product-msg" aria-live="polite"></p>
+        <button type="button" class="product__see-cart" id="product-cart">VOIR LE PANIER →</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Panneau panier -->
+  <dialog class="cart" id="cart" aria-labelledby="cart-title">
+    <div class="cart__inner">
+      <div class="cart__head">
+        <h2 class="cart__title" id="cart-title">PANIER</h2>
+        <button type="button" class="product__close cart__close" id="cart-close" aria-label="Fermer le panier">×</button>
+      </div>
+      <p class="cart__empty" id="cart-empty">Ton panier est vide.</p>
+      <ul class="cart__list" id="cart-list"></ul>
+      <div class="cart__foot" id="cart-foot" hidden>
+        <p class="cart__total"><span>TOTAL</span><span id="cart-total">0,00 €</span></p>
+        <button type="button" class="product__add" id="cart-checkout">CHECKOUT</button>
+        <p class="product__msg" id="cart-msg" aria-live="polite"></p>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="script.js"></script>
 </body>
 </html>

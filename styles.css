@@ -116,13 +116,15 @@ body { container-type: inline-size; }
 }
 .search.is-open .search__input { opacity: 1; }
 .search__input::placeholder { color: var(--yellow); opacity: 1; }
-.search__input:focus::placeholder { opacity: .55; }
 .search__input::-webkit-search-cancel-button { filter: sepia(1) saturate(8) hue-rotate(5deg); cursor: pointer; }
 
 /* ---------------- Panier / Checkout ---------------- */
 .cart-group { display: flex; gap: 0.4375rem; }   /* 7px */
 
 .pill {
+  border: 0;
+  cursor: pointer;
+  color: inherit;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -199,8 +201,9 @@ body { container-type: inline-size; }
 }
 .cats { display: flex; flex-direction: column; gap: 1.3125rem; }   /* pas de 45px */
 .links { display: flex; flex-direction: column; gap: 0.5rem; margin-top: auto; padding-top: 3rem; }
-.sidebar a { display: inline-block; white-space: nowrap; transition: opacity .2s; }
-.sidebar a:hover { text-decoration: underline; text-underline-offset: 0.25rem; }
+.cats button { padding: 0; border: 0; background: none; font: inherit; letter-spacing: inherit; text-align: left; cursor: pointer; }
+.sidebar a, .cats button { display: inline-block; white-space: nowrap; transition: opacity .2s; }
+.sidebar a:hover, .cats button:hover { text-decoration: underline; text-underline-offset: 0.25rem; }
 
 /* ---------------- Produits ---------------- */
 .main { grid-area: main; padding: 5.125rem 2.75rem 4rem 1rem; }
@@ -229,6 +232,7 @@ body { container-type: inline-size; }
   opacity: .35;
 }
 .card__link:hover .card__img img { transform: scale(1.04); }
+.card__img, .card__name, .card__price { display: block; }
 .card__name { margin: 0 0 0.5rem; font-size: 1rem; font-weight: 400; letter-spacing: 0.02rem; }
 .card__price { margin: 0; font-size: 1rem; }
 .card__link:hover .card__name { text-decoration: underline; text-underline-offset: 0.25rem; }
@@ -274,7 +278,7 @@ body { container-type: inline-size; }
 }
 
 /* ---------------- Catégorie active + statut ---------------- */
-.cats a.is-active {
+.cats button.is-active {
   background: var(--yellow);
   color: #000;
   box-shadow: 0 0 0 0.25rem var(--yellow);
@@ -500,3 +504,17 @@ html:has(dialog[open]) { overflow: hidden; }
 }
 .qty__btn:hover { background: var(--yellow); color: #000; border-color: var(--yellow); }
 .qty__n { min-width: 1.75rem; text-align: center; font-size: 0.875rem; font-weight: 700; }
+
+/* ---------- Accessibilité (corrections de l'audit) ---------- */
+/* Titres pour les lecteurs d'écran, invisibles à l'écran */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.status__label { margin: 0; font: inherit; }
+/* Recherche : la barre a overflow:hidden, qui coupait le contour de focus.
+   Le contour est donc dessiné sur la barre entière. */
+.search__toggle:focus-visible, .search__input:focus-visible { outline: none; }
+.search:has(:focus-visible) { outline: 0.125rem solid var(--yellow); outline-offset: 0.1875rem; }
+/* Catégorie active : l'ombre jaune masquait le contour de focus, on l'écarte */
+.cats button.is-active:focus-visible { outline-offset: 0.5rem; }

@@ -22,9 +22,9 @@ const grid = document.getElementById("grid");
 grid.innerHTML = products.map((p, i) => `
   <li class="card" data-name="${p.name.toLowerCase()}" data-cats="${p.cats.join("|")}">
     <button type="button" class="card__link" data-index="${i}">
-      <div class="card__img">${p.img ? `<img src="${p.img}" alt="" loading="lazy"${p.glow ? ` class="has-glow" style="--glow: ${p.glow}"` : ""}>` : `<span>CRTZ</span>`}</div>
-      <p class="card__name">${p.name}</p>
-      <p class="card__price">${euro.format(p.price)}</p>
+      <span class="card__img">${p.img ? `<img src="${p.img}" alt="" loading="lazy"${p.glow ? ` class="has-glow" style="--glow: ${p.glow}"` : ""}>` : `<span>CRTZ</span>`}</span>
+      <span class="card__name">${p.name}</span>
+      <span class="card__price">${euro.format(p.price)}</span>
     </button>
   </li>`).join("");
 
@@ -89,7 +89,7 @@ document.addEventListener("pointerdown", (e) => {
 
 // ---------- Filtre : catégorie du menu + recherche ----------
 let activeCat = null;
-const catLinks = [...document.querySelectorAll(".cats a")];
+const catLinks = [...document.querySelectorAll(".cats button")];
 const status = document.getElementById("status");
 const statusLabel = document.getElementById("status-label");
 const statusClear = document.getElementById("status-clear");
@@ -113,7 +113,7 @@ function setCategory(cat) {
   catLinks.forEach((a) => {
     const on = a.textContent.trim() === cat;
     a.classList.toggle("is-active", on);
-    if (on) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    a.setAttribute("aria-pressed", String(on));
   });
   filter();
 }

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=3">
   <!-- Applique la taille enregistrée avant l'affichage pour éviter un saut -->
   <script>
     try {
@@ -20,6 +20,7 @@
 <body>
   <div class="page">
     <header class="header">
+      <h1 class="sr-only">Corteiz — Boutique</h1>
       <a class="logo" href="#" aria-label="Accueil">
         <img src="assets/logo.png" alt="Corteiz" width="200" height="90">
       </a>
@@ -35,11 +36,11 @@
       </div>
 
       <div class="cart-group">
-        <a class="pill pill--cart" href="#" aria-haspopup="dialog">
+        <button type="button" class="pill pill--cart" aria-haspopup="dialog">
           <img src="assets/cart.svg" alt="" width="15" height="15">
           <span>Panier (<span id="cart-count">0</span>)</span>
-        </a>
-        <a class="pill" href="#" id="checkout-pill" aria-haspopup="dialog">CHECKOUT</a>
+        </button>
+        <button type="button" class="pill" id="checkout-pill" aria-haspopup="dialog">CHECKOUT</button>
       </div>
 
       <!-- Taille du site : 16 / 24 / 34 px -->
@@ -52,20 +53,21 @@
     </header>
 
     <aside class="sidebar">
-      <nav aria-label="Catégories">
+      <nav aria-labelledby="cats-title">
+        <h2 class="sr-only" id="cats-title">Catégories</h2>
         <ul class="cats">
-          <li><a href="#">R419</a></li>
-          <li><a href="#">NEW</a></li>
-          <li><a href="#">CLASSIC</a></li>
-          <li><a href="#">COMBOS</a></li>
-          <li><a href="#">T-SHIRTS</a></li>
-          <li><a href="#">TOPS / JERSEYS</a></li>
-          <li><a href="#">SWEATSHIRTS</a></li>
-          <li><a href="#">JACKETS</a></li>
-          <li><a href="#">KNITWEAR</a></li>
-          <li><a href="#">BOTTOMS</a></li>
-          <li><a href="#">SHORTS</a></li>
-          <li><a href="#">DENIM</a></li>
+          <li><button type="button" aria-pressed="false">R419</button></li>
+          <li><button type="button" aria-pressed="false">NEW</button></li>
+          <li><button type="button" aria-pressed="false">CLASSIC</button></li>
+          <li><button type="button" aria-pressed="false">COMBOS</button></li>
+          <li><button type="button" aria-pressed="false">T-SHIRTS</button></li>
+          <li><button type="button" aria-pressed="false">TOPS / JERSEYS</button></li>
+          <li><button type="button" aria-pressed="false">SWEATSHIRTS</button></li>
+          <li><button type="button" aria-pressed="false">JACKETS</button></li>
+          <li><button type="button" aria-pressed="false">KNITWEAR</button></li>
+          <li><button type="button" aria-pressed="false">BOTTOMS</button></li>
+          <li><button type="button" aria-pressed="false">SHORTS</button></li>
+          <li><button type="button" aria-pressed="false">DENIM</button></li>
         </ul>
       </nav>
       <ul class="links">
@@ -76,9 +78,9 @@
       </ul>
     </aside>
 
-    <main class="main">
+    <main class="main" id="contenu">
       <div class="status" id="status" aria-live="polite">
-        <span id="status-label">TOUS LES ARTICLES</span>
+        <h2 class="status__label" id="status-label">TOUS LES ARTICLES</h2>
         <button type="button" class="status__clear" id="status-clear" hidden>× TOUT AFFICHER</button>
       </div>
       <ul class="grid" id="grid"></ul>
@@ -120,6 +122,6 @@
     </div>
   </dialog>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=3"></script>
 </body>
 </html>

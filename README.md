@@ -25,6 +25,6 @@ puis aller sur http://localhost:5173.
 
 - `index.html`, `styles.css`, `script.js` : le site
 - `assets/` : logo, icônes et photos produits
-- `docs/` : audit d'accessibilité (PDF)
+- `docs/` : audit d'accessibilité du parcours boutique (PDF), avec preuves, priorités et corrections appliquées au site
 
 Projet pédagogique, non affilié à Corteiz.

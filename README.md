@@ -3,6 +3,11 @@
 Projet d'école : redesign du site Corteiz à partir de la maquette Figma.
 Site statique en HTML / CSS / JavaScript, sans dépendance.
 
+## Liens
+
+- Maquette Figma : https://www.figma.com/design/r10nrcXgmewVYgy2qBZPQs/Yann?node-id=0-1
+- Audit d'accessibilité (PDF) : [docs/](docs/)
+
 ## Lancer le site
 
 Ouvrir `index.html` dans un navigateur, ou lancer un petit serveur local :
